@@ -37,7 +37,7 @@ router.get('/resources/ids', async (req, res) => {
     await axios.get('https://api.resourceguruapp.com/v1/karlalomeli/resources',{
         headers: {
             'content-type': 'application/json',
-             Authorization: `Bearer wOUxFC3GjnMeNj-96JbJdtaAe2rOZmwvALsdu9luvwk`
+             Authorization: `Bearer ${await accessToken}`
         }
     })
     .then(function(response){
