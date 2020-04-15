@@ -1,11 +1,11 @@
 module.exports = {
 
     database:{
-	    host: '10.48.13.154',
+	    host: 'remotemysql.com',
 	    port: 3306,
-	    user: 'nodeuser',
-	    password : 'nodeuser1234',
-	    database : 'MAPEO',
+	    user: 'hc4yPOHUb3',
+	    password : '9aHqRj5i0M',
+	    database : 'hc4yPOHUb3',
 		timezone: "+00:00",
 		connectionLimit: 10,
 		acquireTimeout: 30000
