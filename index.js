@@ -1,9 +1,7 @@
 //NPM Requires
 const express = require('express');
-const cors = require('cors');
 
 //Project's own requires
-
 
 
 //Initializations
@@ -13,23 +11,6 @@ const rg = require('./routes/resource_guru')
 const mail = require('./routes/sendEmail')
 const bd = require('./routes/mysql_bd')
 //Express Settings
-
-app.set('trust proxy', 1);
-app.use(function (req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'POST');
-	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-	res.setHeader('Access-Control-Allow-Credentials', true);
-	next();
-});
-
-
-app.use(cors({
-		origin:['http://localhost:3000'],
-		methods:['GET','POST'],
-	}
-));
-
 
 //Express Middlewares
 app.use(express.json()); 

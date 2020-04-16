@@ -7,7 +7,7 @@ const keys = require('../config/keys')
 const router = express.Router()
 
 let transport = nodemailer.createTransport({
-    service: 'gmail',
+    service: keys.SERVICE,
     auth: {
        user: keys.EMAIL,
        pass: keys.PASS

@@ -19,8 +19,10 @@ var expireDate = getExpireDate(accessToken[0].created_at, accessToken[0].expires
     //console.log("new2" + newToken)
     return newToken
   }else{
-   //console.log(accessToken + "//")
-   return accessToken[0].access_token
+   //console.log(accessToken[0].access_token)
+   var divide = accessToken[0].access_token.split('\r\n')
+   //console.log(divide[0])
+   return divide[0]
   }
 
 

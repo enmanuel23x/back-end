@@ -17,10 +17,11 @@ router.get('/me/:token', (req, res) => {
 
 router.get('/resource/:id', async(req, res) => {
   accessToken = await getToken()
+ 
     const { id } = req.params
     axios.get(`https://api.resourceguruapp.com/v1/karlalomeli/resources/${id}`,{
         headers: {
-            'content-type': 'application/json',
+            'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
         }
     })
@@ -34,9 +35,10 @@ router.get('/resource/:id', async(req, res) => {
 
 router.get('/resources/ids', async (req, res) => {
     accessToken = await getToken()
+     console.log(`Bearer ${await accessToken}`)
     await axios.get('https://api.resourceguruapp.com/v1/karlalomeli/resources',{
         headers: {
-            'content-type': 'application/json',
+            'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
         }
     })
@@ -61,7 +63,7 @@ router.post('/resources/emails', async (req, res) => {
         for (var i = 0; i <= (ids.length - 1); i++) {
         await axios.get(`https://api.resourceguruapp.com/v1/karlalomeli/resources/${ids[i]}`,{
         headers: {
-            'content-type': 'application/json',
+            'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
         }
     })
@@ -99,7 +101,7 @@ router.post('/resources/create', async (req, res) => {
     },
     {
         headers: {
-            'content-type': 'application/json',
+            'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
         }
     })
@@ -121,7 +123,7 @@ router.post('/resources/edit/:id', async (req, res) => {
     },
     {
         headers: {
-            'content-type': 'application/json',
+            'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
         }
     })
@@ -139,7 +141,7 @@ router.get('/resources/delete/:id', async(req, res) => {
     axios.delete(`https://api.resourceguruapp.com/v1/karlalomeli/resources/${id}`, 
     {
         headers: {
-            'content-type': 'application/json',
+            'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
         }
     })
@@ -155,7 +157,7 @@ router.get('/skills', async (req, res) => {
   accessToken = await getToken()
     axios.get('https://api.resourceguruapp.com/v1/karlalomeli/resource_types',{
         headers: {
-            'content-type': 'application/json',
+            'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
         }
     })
@@ -172,7 +174,7 @@ router.get('/titles', async (req, res) => {
   accessToken = await getToken()
     axios.get('https://api.resourceguruapp.com/v1/karlalomeli/resource_types',{
         headers: {
-            'content-type': 'application/json',
+            'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
         }
     })
