@@ -12,10 +12,10 @@ module.exports = {
 
 
 
-		host: 'http://10.48.13.154.nip.io',
+		host: '10.48.13.154',
 	    port: 3306,
-	    user: 'nodeuser',
-	    password : 'nodeuser1234',
+	    user: 'root',
+	    password : 'userdb',
 	    database : 'MAPEO',
 		timezone: "+00:00",
 		connectionLimit: 10,
