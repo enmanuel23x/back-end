@@ -12,7 +12,7 @@ module.exports = {
 
 
 
-		host: 'http://10.48.13.154',
+		host: 'http://10.48.13.154.nip.io',
 	    port: 3306,
 	    user: 'nodeuser',
 	    password : 'nodeuser1234',
