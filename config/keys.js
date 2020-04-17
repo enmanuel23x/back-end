@@ -4,5 +4,6 @@ module.exports = {
     CLIENT_SECRET: 'lUVyjNQvMJk3QHtzFsUvm-tzkCT7pP0O9aDFnsLW3Oc',
     EMAIL: 'enma2310@outlook.com',
     PASS: '23pizzaxnoL',
-    SERVICE: 'hotmail'
+    HOST: 'smtp.office365.com',
+    PORT: 587
 }
