@@ -1,5 +1,6 @@
 //NPM Requires
 const express = require('express');
+const cors = require('cors');
 
 //Project's own requires
 
@@ -11,6 +12,7 @@ const rg = require('./routes/resource_guru')
 const mail = require('./routes/sendEmail')
 const bd = require('./routes/mysql_bd')
 //Express Settings
+app.use(cors());
 
 //Express Middlewares
 app.use(express.json()); 
