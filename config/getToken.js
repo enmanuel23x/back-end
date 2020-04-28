@@ -39,7 +39,7 @@ module.exports = async function getToken() {
         const expireSecG = requestToken.data.expires_in
         const newToken = requestToken.data.access_token
         await pool.query(`UPDATE token SET access_token = '${newToken}', expires_in = '${expireSecG}', created_at = '${today}'`);
-        console.logconsole.log("update :" + newToken)
+        console.log("update :" + newToken)
         return newToken
     }
 
