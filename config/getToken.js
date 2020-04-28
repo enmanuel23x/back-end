@@ -8,8 +8,8 @@ module.exports = async function getToken() {
 
     var res = today.split('/')
     var res1 = expireDate.split('/')
-    console.log(res1)
-    console.log(res)
+    //console.log(res1)
+    //console.log(res)
     if(res[0] >= res1[0] && res[1] > res1[1]){
         var newToken = await getNewToken()
         //console.log("new1" + newToken)
@@ -30,16 +30,16 @@ module.exports = async function getToken() {
 
         var requestToken = await axios.post('https://api.resourceguruapp.com/oauth/token', {
             grant_type    : 'password',
-            username      : 'mariaalejandralomeli@gmail.com',
-            password      : 'Intelix.123',
-            client_id     : '92fivwj7g0ugu4qh9tqDnFxqB6XPq1IcjAktX9ruvIQ',
-            client_secret : 'V_Ner9Zj29PXPKjoqqevEqS3BeWvs8ZTyD6E1DRQKF8'
+            username      : 'ale.aesb@gmail.com',
+            password      : 'Marzo2020.',
+            client_id     : 'JRnuq5nOP0RobRyhKMdpbvTonFCKccOU57ExKA7PUqQ',
+            client_secret : 'XmVU5uEM4QkaQKgnmtct4aOyXgFovHtmgGAwQFxhCpo'
         })
 
         const expireSecG = requestToken.data.expires_in
         const newToken = requestToken.data.access_token
         await pool.query(`UPDATE token SET access_token = '${newToken}', expires_in = '${expireSecG}', created_at = '${today}'`);
-        console.log("update :" + newToken)
+        console.logconsole.log("update :" + newToken)
         return newToken
     }
 
