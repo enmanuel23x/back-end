@@ -3,14 +3,14 @@ const express = require('express');
 const cors = require('cors');
 
 //Project's own requires
-
+const server  = require('./config/config').server;
 
 //Initializations
 const app = express();
 //const auth = require('./routes/auth')
 const rg = require('./routes/resource_guru')
 const mail = require('./routes/sendEmail')
-const bd = require('./routes/mysql_bd')
+const conn_logs = require('./routes/conn_logs')
 //Express Settings
 app.use(cors());
 
@@ -21,9 +21,9 @@ app.use(express.json());
 //app.use('/auth', auth)
 app.use('/rg', rg)
 app.use('/email',mail)
-app.use('/bd',bd)
+app.use('/bd',conn_logs)
 //Start Server
-const PORT = process.env.PORT || 4080;
+const PORT = process.env.PORT || server.port;
 app.listen(PORT, () => {
-	console.log(`Server running on http://localhost:${PORT}`)
+	console.log(`Server running on ${server.host}:${PORT}`)
 });

@@ -2,7 +2,7 @@
 const express = require('express')
 const axios = require('axios')
 //Project's own requires
-const keys = require('../config/keys')
+const keys = require('../config/config').Resource_Guru
 var getToken = require('../config/getToken')
 //Initializations
 const router = express.Router()
@@ -19,7 +19,7 @@ router.get('/resource/:id', async(req, res) => {
   accessToken = await getToken()
  
     const { id } = req.params
-    axios.get(`https://api.resourceguruapp.com/v1/intelix1/resources/${id}`,{
+    axios.get(keys.RG_URL+`/resources/${id}`,{
         headers: {
             'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
@@ -35,7 +35,7 @@ router.get('/resource/:id', async(req, res) => {
 
 router.get('/resources/ids', async (req, res) => {
     accessToken = await getToken()
-    await axios.get('https://api.resourceguruapp.com/v1/intelix1/resources',{
+    await axios.get(keys.RG_URL+'/resources',{
         headers: {
             'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
@@ -60,7 +60,7 @@ router.post('/resources/emails', async (req, res) => {
     const { ids } = req.body
     const getMails = async function(ids, emails){
         for (var i = 0; i <= (ids.length - 1); i++) {
-        await axios.get(`https://api.resourceguruapp.com/v1/intelix1/resources/${ids[i]}`,{
+        await axios.get(keys.RG_URL+`/resources/${ids[i]}`,{
         headers: {
             'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
@@ -85,7 +85,7 @@ router.post('/resources/emails', async (req, res) => {
 router.post('/resources/create', async (req, res) => {
   accessToken = await getToken()
     const {fName, lName, phone, email, skills} = req.body
-    axios.post('https://api.resourceguruapp.com/v1/intelix1/resources', 
+    axios.post(keys.RG_URL+'/resources', 
     {
         first_name: fName,
         last_name: lName,
@@ -115,7 +115,7 @@ router.post('/resources/edit/:id', async (req, res) => {
   accessToken = await getToken()
     const { id } = req.params
     const {skills} = req.body
-    axios.put(`https://api.resourceguruapp.com/v1/intelix1/resources/${id}`, 
+    axios.put(keys.RG_URL+`/resources/${id}`, 
     {
         custom_field_option_ids: skills
     },
@@ -136,7 +136,7 @@ router.post('/resources/edit/:id', async (req, res) => {
 router.get('/resources/delete/:id', async(req, res) => {
   accessToken = await getToken()
     const { id } = req.params
-    axios.delete(`https://api.resourceguruapp.com/v1/intelix1/resources/${id}`, 
+    axios.delete(keys.RG_URL+`/resources/${id}`, 
     {
         headers: {
             'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ router.get('/resources/delete/:id', async(req, res) => {
 
 router.get('/skills', async (req, res) => {
   accessToken = await getToken()
-    axios.get('https://api.resourceguruapp.com/v1/intelix1/resource_types',{
+    axios.get(keys.RG_URL+'/resource_types',{
         headers: {
             'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`
@@ -170,7 +170,7 @@ router.get('/skills', async (req, res) => {
 })
 router.get('/titles', async (req, res) => {
   accessToken = await getToken()
-    axios.get('https://api.resourceguruapp.com/v1/intelix1/resource_types',{
+    axios.get(keys.RG_URL+'/resource_types',{
         headers: {
             'Content-Type': 'application/json',
              Authorization: `Bearer ${await accessToken}`

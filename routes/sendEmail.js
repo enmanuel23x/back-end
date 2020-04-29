@@ -2,7 +2,7 @@
 const express = require('express')
 const nodemailer = require('nodemailer');
 //project's own requires
-const keys = require('../config/keys')
+const keys = require('../config/config').email;
 //Initializations
 const router = express.Router()
 

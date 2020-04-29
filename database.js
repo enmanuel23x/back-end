@@ -3,9 +3,8 @@ const mysql = require('mysql');
 const { promisify } = require('util');
 
 //Project's own requires
-const { database } = require('./config/keysDB');
+const database  = require('./config/config').database;
 const pool = mysql.createPool(database);
-
 
 pool.getConnection((err, connection) => {
     if(err){

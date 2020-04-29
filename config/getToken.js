@@ -1,4 +1,5 @@
 module.exports = async function getToken() {
+    const keys = require('./config').Resource_Guru;
     const pool = require('../database');
     const axios = require('axios')
     var nowDate = new Date();
@@ -29,11 +30,11 @@ module.exports = async function getToken() {
     async function getNewToken(){
 
         var requestToken = await axios.post('https://api.resourceguruapp.com/oauth/token', {
-            grant_type    : 'password',
-            username      : 'ale.aesb@gmail.com',
-            password      : 'Marzo2020.',
-            client_id     : 'JRnuq5nOP0RobRyhKMdpbvTonFCKccOU57ExKA7PUqQ',
-            client_secret : 'XmVU5uEM4QkaQKgnmtct4aOyXgFovHtmgGAwQFxhCpo'
+            grant_type    : keys.grant_type,
+            username      : keys.username,
+            password      : keys.password,
+            client_id     : keys.CLIENT_ID,
+            client_secret : keys.CLIENT_SECRET
         })
 
         const expireSecG = requestToken.data.expires_in
