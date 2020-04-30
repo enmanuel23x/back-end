@@ -9,6 +9,7 @@ const router = express.Router()
 let transport = nodemailer.createTransport({
     host: keys.HOST,
     port: keys.PORT,
+    secure: true, 
     auth: {
        user: keys.EMAIL,
        pass: keys.PASS
