@@ -10,6 +10,9 @@ let transport = nodemailer.createTransport({
     host: keys.HOST,
     port: keys.PORT,
     secure: true, 
+    tls: {
+        rejectUnauthorized: false
+    },
     auth: {
        user: keys.EMAIL,
        pass: keys.PASS
