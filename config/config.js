@@ -18,8 +18,8 @@ module.exports = {
         RG_URL:"https://api.resourceguruapp.com/v1/intelix1"
     },
     email:{
-        EMAIL: 'anarvaezmalave@gmail.com',
-        PASS: 'Yujuli800',
+        EMAIL: 'intelixsender@gmail.com ',
+        PASS: 'Int1234567',
         HOST: 'smtp.gmail.com',
         PORT: 465
     },
