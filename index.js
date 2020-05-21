@@ -19,7 +19,6 @@ const sessionConfig = {
     name: 'appName',
     resave: false,
     saveUninitialized: false,
-    store: store,
     cookie : {
       sameSite: 'strict', // THIS is the config you are looing for.
     }
