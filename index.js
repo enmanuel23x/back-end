@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 var https = require('https');
-const session = require('express-session');
 //Crt
 var options = {
     key: fs.readFileSync('./config/private.key'),
@@ -14,15 +13,6 @@ var options = {
 //Project's own requires
 const config  = require('./config/config').server;
 // set a cookie
-const sessionConfig = {
-    secret: 'MYSECRET',
-    name: 'appName',
-    resave: false,
-    saveUninitialized: false,
-    cookie : {
-      sameSite: 'strict', // THIS is the config you are looing for.
-    }
-  };
 //Initializations
 const app = express();
 //const auth = require('./routes/auth')
@@ -31,7 +21,22 @@ const mail = require('./routes/sendEmail')
 const conn_logs = require('./routes/conn_logs')
 //Express Settings
 app.use(cors());
-app.use(session(sessionConfig));
+app.use(function (req, res, next) {
+    // check if client sent cookie
+    var cookie = res.cookie;
+    if (cookie === undefined)
+    {
+      res.cookie('foo', 'bar', {
+        sameSite: false
+      });
+    } 
+    else
+    {
+      // yes, cookie was already present 
+      console.log('cookie exists', cookie);
+    } 
+    next(); // <-- important!
+  });
 //Express Middlewares
 app.use(express.json()); 
 //Express Routes
