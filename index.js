@@ -13,6 +13,14 @@ var options = {
 //Project's own requires
 const config  = require('./config/config').server;
 // set a cookie
+//Initializations
+const app = express();
+//const auth = require('./routes/auth')
+const rg = require('./routes/resource_guru')
+const mail = require('./routes/sendEmail')
+const conn_logs = require('./routes/conn_logs')
+//Express Settings
+app.use(cors());
 app.use(function (req, res, next) {
     // check if client sent cookie
     var cookie = res.cookie;
@@ -29,15 +37,6 @@ app.use(function (req, res, next) {
     } 
     next(); // <-- important!
   });
-//Initializations
-const app = express();
-//const auth = require('./routes/auth')
-const rg = require('./routes/resource_guru')
-const mail = require('./routes/sendEmail')
-const conn_logs = require('./routes/conn_logs')
-//Express Settings
-app.use(cors());
-
 //Express Middlewares
 app.use(express.json()); 
 //Express Routes
