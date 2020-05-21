@@ -6,7 +6,7 @@ var https = require('https');
 //Crt
 var options = {
     key: fs.readFileSync('./config/private.key'),
-    cert: fs.readFileSync('./config/certificate.crt'),
+    cert: fs.readFileSync('./config/combined.crt'),
     requestCert: false,
     rejectUnauthorized: false
 };
