@@ -12,7 +12,23 @@ var options = {
 };
 //Project's own requires
 const config  = require('./config/config').server;
-
+// set a cookie
+app.use(function (req, res, next) {
+    // check if client sent cookie
+    var cookie = res.cookie;
+    if (cookie === undefined)
+    {
+      res.cookie('foo', 'bar', {
+        sameSite: true
+      });
+    } 
+    else
+    {
+      // yes, cookie was already present 
+      console.log('cookie exists', cookie);
+    } 
+    next(); // <-- important!
+  });
 //Initializations
 const app = express();
 //const auth = require('./routes/auth')
