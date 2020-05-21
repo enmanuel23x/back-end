@@ -1,9 +1,17 @@
 //NPM Requires
 const express = require('express');
 const cors = require('cors');
-
+const fs = require('fs');
+var https = require('https');
+//Crt
+var options = {
+    key: fs.readFileSync('./config/private.key'),
+    cert: fs.readFileSync('./config/certificate.crt'),
+    requestCert: false,
+    rejectUnauthorized: false
+};
 //Project's own requires
-const server  = require('./config/config').server;
+const config  = require('./config/config').server;
 
 //Initializations
 const app = express();
@@ -23,7 +31,7 @@ app.use('/rg', rg)
 app.use('/email',mail)
 app.use('/bd',conn_logs)
 //Start Server
-const PORT = process.env.PORT || server.port;
-app.listen(PORT, () => {
-	console.log(`Server running on ${server.host}:${PORT}`)
+const PORT = process.env.PORT || config.port;
+var server = https.createServer(options, app).listen(PORT, function(){
+    console.log(`Server running on ${config.host}:${PORT}`)
 });
