@@ -10,12 +10,12 @@ module.exports = {
 		acquireTimeout: 30000
     },
     Resource_Guru:{
-        username: 'ale.aesb@gmail.com',
-        password: 'Marzo2020.',
+        username: 'enma2310@gmail.com',
+        password: 'Piz23le10x@',
         grant_type: 'password',
-        CLIENT_ID: 'JRnuq5nOP0RobRyhKMdpbvTonFCKccOU57ExKA7PUqQ',
-        CLIENT_SECRET: 'XmVU5uEM4QkaQKgnmtct4aOyXgFovHtmgGAwQFxhCpo',
-        RG_URL:"https://api.resourceguruapp.com/v1/intelix1"
+        CLIENT_ID: 'aImfLd5vETvfHjt0dRO_AG43s_LXG2SqxisPapUlzbI',
+        CLIENT_SECRET: 'Ho78My6qgOVVRYwoCfTRk-UfA028Q6v6pq7jwcWPO8w',
+        RG_URL:"https://api.resourceguruapp.com/v1/enmanuelleon"
     },
     email:{
         EMAIL: 'intelixsender@gmail.com ',
