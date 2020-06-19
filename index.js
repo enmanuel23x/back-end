@@ -6,7 +6,7 @@ const config  = require('./config/config').server;
 //Initializations
 const app = express();
 //const auth = require('./routes/auth')
-const rg = require('./routes/resource_guru')
+const resource = require('./routes/resources')
 const mail = require('./routes/sendEmail')
 const conn_logs = require('./routes/conn_logs')
 //Express Settings
@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json()); 
 //Express Routes
 //app.use('/auth', auth)
-app.use('/rg', rg)
+app.use('/resource', resource)
 app.use('/email',mail)
 app.use('/bd',conn_logs)
 //Start Server
