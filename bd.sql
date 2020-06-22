@@ -1,3 +1,4 @@
+DROP IF EXISTS `MAPEO`;
 CREATE DATABASE IF NOT EXISTS `MAPEO`;
 USE `MAPEO`;
 
@@ -10,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `connection_logs` (
     PRIMARY KEY (`id`)
 );
 -- Grupos de usuario
-CREATE TABLE IF NOT EXISTS `group` (
+CREATE TABLE IF NOT EXISTS `user_group` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `name` varchar(50) NOT NULL,
     `description` varchar(250) NOT NULL,
