@@ -10,6 +10,14 @@ const router = express.Router()
 
 //Routes
     //GET para obtener registros
+router.get('/tableUser', async (req, res) => {//Ruta para obtener datos de los usuarios
+    const result = await pool.query('SELECT * FROM user');
+    res.json(result);
+});
+router.get('/tableSkills', async (req, res) => {//Ruta para obtener datos de los skills
+    const result = await pool.query('SELECT * FROM skills');
+    res.json(result);
+});
 router.get('/users/:email', async (req, res) => {//Ruta para obtener datos del usuario segun su email
     const { email } = req.params 
     const result = await pool.query('SELECT *, (SELECT name FROM user_group WHERE id = user.group_id) AS group_name FROM user WHERE email = "'+email+'"');
@@ -17,8 +25,8 @@ router.get('/users/:email', async (req, res) => {//Ruta para obtener datos del u
 });
 router.get('/skills/:group', async (req, res) => {//Ruta para obtener datos de skill segun su grupo
     const { group } = req.params
-    let skills = await pool.query('SELECT *, (SELECT name FROM categories WHERE id = skills.category_id) AS category_name FROM skills;');
-    const result = skills.filter((data) => JSON.parse(data.group_ids).includes( parseInt(group)));
+    let result = await pool.query('SELECT *, (SELECT name FROM categories WHERE id = skills.category_id) AS category_name FROM skills ORDER BY category_name ASC, name ASC;');
+    //const result = skills.filter((data) => JSON.parse(data.group_ids).includes( parseInt(group)));
     res.json(result);
 });
 router.get('/groups', async (req, res) => {//Ruta para obtener datos de los grupos de gerencia
