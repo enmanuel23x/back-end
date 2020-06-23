@@ -77,22 +77,22 @@ router.put('/skills', async (req, res) => {//Ruta para ingresar los datos de las
     }
 });
 router.put('/groups', async (req, res) => {//Ruta para ingresar los datos de los grupos de gerencia
-    const { name, description, group_ids } = req.body 
+    const { name, description } = req.body 
     const exist = (await pool.query('SELECT * FROM user_group WHERE name = "'+name+'"')).length!=0 ? true : false;
     if (exist){
         res.send("ERROR");
     }else{
-        const result = await pool.query('INSERT INTO group SET ?', {name: name, group_ids: group_ids, description: description})
+        const result = await pool.query('INSERT INTO group SET ?', {name: name, description: description})
         res.json(result);
     }
 });
 router.put('/categories', async (req, res) => {//Ruta para ingresar los datos de la categoria de skill
-    const { name, description } = req.body 
+    const { name, description, group_ids } = req.body 
     const exist = (await pool.query('SELECT * FROM categories WHERE name = "'+name+'"')).length!=0 ? true : false;
     if (exist){
         res.send("ERROR");
     }else{
-        const result = await pool.query('INSERT INTO categories SET ?', {name: name, description: description})
+        const result = await pool.query('INSERT INTO categories SET ?', {name: name, group_ids: group_ids, description: description})
         res.json(result);
     }
 });
@@ -139,10 +139,10 @@ function updateSkillInUser(user, skillId, name){
         skills: JSON.stringify(result)})
 }
 router.post('/groups', async (req, res) => {//Ruta para editar los datos del usuario
-    const { id, name, description, group_ids } = req.body 
+    const { id, name, description } = req.body 
     const exist = (await pool.query('SELECT * FROM user_group WHERE id = "'+id+'"')).length!=0 ? true : false;
     if (exist){
-        const result = await pool.query('UPDATE group SET name = ?, group_ids = ?, description = ? WHERE id = ?', [name, group_ids, description, id])
+        const result = await pool.query('UPDATE group SET name = ?, description = ? WHERE id = ?', [name, description, id])
         res.json(result);
     }else{
         res.send("ERROR");
@@ -150,10 +150,10 @@ router.post('/groups', async (req, res) => {//Ruta para editar los datos del usu
     }
 });
 router.post('/categories', async (req, res) => {//Ruta para editar los datos del usuario
-    const { id, name, description } = req.body 
+    const { id, name, description, group_ids } = req.body 
     const exist = (await pool.query('SELECT * FROM categories WHERE id = "'+id+'"')).length!=0 ? true : false;
     if (exist){
-        const result = await pool.query('UPDATE categories SET name = ?, description = ? WHERE id = ?', [name, description, id])
+        const result = await pool.query('UPDATE categories SET name = ?, group_ids = ?, description = ? WHERE id = ?', [name, group_ids, description, id])
         res.json(result);
     }else{
         res.send("ERROR");
