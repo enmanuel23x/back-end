@@ -57,12 +57,12 @@ router.get('/categories', async (req, res) => {//Ruta para obtener datos de las 
     //PUT para insertar registros
 router.put('/users', async (req, res) => {//Ruta para ingresar los datos del usuario
     const { email, full_name, group_id } = req.body
-    const skills = {"ids": [], "lvls": [], "names": []}
+    const skills = JSON.stringify({"ids": [], "lvls": [], "names": []})
     const exist = (await pool.query('SELECT * FROM user WHERE email = "'+email+'"')).length!=0 ? true : false;
     if (exist){
         res.send("ERROR");
     }else{
-        const result = await pool.query('INSERT INTO user SET ?', {email: email, full_name: full_name, group_id: group_id})
+        const result = await pool.query('INSERT INTO user SET ?', {email: email, full_name: full_name, group_id: group_id, skills: skills})
         res.json(result);
     }
 });
