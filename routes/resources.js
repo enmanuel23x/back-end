@@ -12,11 +12,11 @@ const router = express.Router()
 //Routes
     //GET para obtener registros
 router.get('/tableUser', async (req, res) => {//Ruta para obtener datos de los usuarios
-    const result = await pool.query('SELECT * FROM user');
+    const result = await pool.query('SELECT *, (SELECT name FROM user_group WHERE id = user.group_id) AS group_name FROM user');
     res.json(result);
 });
 router.get('/tableSkills', async (req, res) => {//Ruta para obtener datos de los skills
-    const result = await pool.query('SELECT * FROM skills');
+    const result = await pool.query('SELECT *, (SELECT name FROM categories WHERE id = skills.category_id) AS category_name FROM skills');
     res.json(result);
 });
 router.get('/users/:email', async (req, res) => {//Ruta para obtener datos del usuario segun su email
