@@ -192,12 +192,37 @@ function deleteSkillFromUser(user, skillId){
 }
 router.delete('/groups/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
     const { id } = req.params
-    const result = await pool.query('DELETE FROM user_group WHERE id =' + id)
+    const cats = await pool.query('SELECT * FROM categories');
+    let exist;
+    cats.forEach(cat => {
+        if(JSON.parse(cat.group_ids).includes(parseInt(id))){
+            exist = true;
+        }
+    });
+    let result;
+    if(exist){
+        result = "ERROR"
+    }else{
+        result = await pool.query('DELETE FROM user_group WHERE id =' + id)
+    }
     res.json(result);
 });
 router.delete('/categories/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
     const { id } = req.params
-    const result = await pool.query('DELETE FROM categories WHERE id =' + id)
+    const skills = await pool.query('SELECT * FROM skills WHERE category_id= '+id);
+    let result;
+    if(skills.length!=0){
+        result == "ERROR"
+    }else{
+        result = await pool.query('DELETE FROM categories WHERE id =' + id)
+    }
     res.json(result);
 });
 module.exports = router
+/*          Lo que falta
+Enmanuel:
+    -Crear categoria
+    -Editar categoria
+Alejandro: 
+    -Editar grupos, usuarios y skills
+*/
