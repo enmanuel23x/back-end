@@ -192,7 +192,7 @@ function deleteSkillFromUser(user, skillId){
 }
 router.delete('/groups/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
     const { id } = req.params
-    const result = await pool.query('DELETE FROM user_groups WHERE id =' + id)
+    const result = await pool.query('DELETE FROM user_group WHERE id =' + id)
     res.json(result);
 });
 router.delete('/categories/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
