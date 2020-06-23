@@ -112,6 +112,15 @@ router.post('/skills', async (req, res) => {//Ruta para editar los datos de las 
     const { id, name, category_id } = req.body; 
     const exist = (await pool.query('SELECT * FROM skills WHERE id = "'+id+'"')).length!=0 ? true : false;
     if (exist){
+        const users = await pool.query('SELECT * FROM user');
+        let user;
+        for (i=0; i<users.length; i++){
+            user = users[i];
+            user.skills = JSON.parse(user.skills);
+            if(user.skills.ids.includes(parseInt(id))){
+                updateSkillInUser(user, id, name)
+            }
+        }
         const result = await pool.query('UPDATE skills SET name = ?, category_id = ? WHERE id = ?', [name, category_id, id])
         res.json(result);
     }else{
@@ -119,6 +128,16 @@ router.post('/skills', async (req, res) => {//Ruta para editar los datos de las 
         
     }
 });
+function updateSkillInUser(user, skillId, name){
+    const index = user.skills.ids.map( (item, i) => item == skillId ? i : null ).filter( (item) => item != null)[0];
+    const result = {ids: user.skills.ids, lvls: user.skills.lvls, names: user.skills.names.map( (item, i) => i == index ? name : item)}
+    axios.post('http://localhost:4080/resource/users',{
+        id: user.id, 
+        email: user.email, 
+        full_name: user.full_name, 
+        group_id: user.group_id, 
+        skills: JSON.stringify(result)})
+}
 router.post('/groups', async (req, res) => {//Ruta para editar los datos del usuario
     const { id, name, description, group_ids } = req.body 
     const exist = (await pool.query('SELECT * FROM user_group WHERE id = "'+id+'"')).length!=0 ? true : false;
@@ -149,9 +168,28 @@ router.delete('/users/:id', async (req, res) => {//Ruta para eliminar los datos 
 });
 router.delete('/skills/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
     const { id } = req.params
-    const result = await pool.query('DELETE FROM skills WHERE id =' + id)
+    const users = await pool.query('SELECT * FROM user');
+    let user;
+    for (i=0; i<users.length; i++){
+        user = users[i];
+        user.skills = JSON.parse(user.skills);
+        if(user.skills.ids.includes(parseInt(id))){
+            deleteSkillFromUser(user, id)
+        }
+    }
+    const result = await pool.query('DELETE FROM skills WHERE id =' + id);
     res.json(result);
 });
+function deleteSkillFromUser(user, skillId){
+    const index = user.skills.ids.map( (item, i) => item == skillId ? i : null ).filter( (item) => item != null)[0];
+    const result = {ids: user.skills.ids.filter( (item, i) => i != index), lvls: user.skills.lvls.filter( (item, i) => i != index), names: user.skills.names.filter( (item, i) => i != index)}
+    axios.post('http://localhost:4080/resource/users',{
+        id: user.id, 
+        email: user.email, 
+        full_name: user.full_name, 
+        group_id: user.group_id, 
+        skills: JSON.stringify(result)})
+}
 router.delete('/groups/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
     const { id } = req.params
     const result = await pool.query('DELETE FROM user_groups WHERE id =' + id)
