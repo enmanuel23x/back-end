@@ -62,7 +62,7 @@ router.put('/users', async (req, res) => {//Ruta para ingresar los datos del usu
     if (exist){
         res.send("ERROR");
     }else{
-        const result = await pool.query('INSERT INTO user SET ?', {email: email, full_name: full_name, group_id: group_id, skills: skills})
+        const result = await pool.query('INSERT INTO user SET ?', {email: email, full_name: full_name, group_id: group_id})
         res.json(result);
     }
 });
