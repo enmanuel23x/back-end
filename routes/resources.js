@@ -67,22 +67,22 @@ router.put('/users', async (req, res) => {//Ruta para ingresar los datos del usu
     }
 });
 router.put('/skills', async (req, res) => {//Ruta para ingresar los datos de las skills
-    const { name, group_ids, category_id } = req.body 
+    const { name, category_id } = req.body 
     const exist = (await pool.query('SELECT * FROM skills WHERE name = "'+name+'"')).length!=0 ? true : false;
     if (exist){
         res.send("ERROR");
     }else{
-        const result = await pool.query('INSERT INTO skills SET ?', {name: name, group_ids: group_ids, category_id: category_id})
+        const result = await pool.query('INSERT INTO skills SET ?', {name: name, category_id: category_id})
         res.json(result);
     }
 });
 router.put('/groups', async (req, res) => {//Ruta para ingresar los datos de los grupos de gerencia
-    const { name, description } = req.body 
+    const { name, description, group_ids } = req.body 
     const exist = (await pool.query('SELECT * FROM user_group WHERE name = "'+name+'"')).length!=0 ? true : false;
     if (exist){
         res.send("ERROR");
     }else{
-        const result = await pool.query('INSERT INTO group SET ?', {name: name, description: description})
+        const result = await pool.query('INSERT INTO group SET ?', {name: name, group_ids: group_ids, description: description})
         res.json(result);
     }
 });
@@ -109,10 +109,10 @@ router.post('/users', async (req, res) => {//Ruta para editar los datos del usua
     }
 });
 router.post('/skills', async (req, res) => {//Ruta para editar los datos de las skills
-    const { id, name, group_ids, category_id } = req.body; 
+    const { id, name, category_id } = req.body; 
     const exist = (await pool.query('SELECT * FROM skills WHERE id = "'+id+'"')).length!=0 ? true : false;
     if (exist){
-        const result = await pool.query('UPDATE skills SET name = ?, group_ids = ?, category_id = ? WHERE id = ?', [name, group_ids, category_id, id])
+        const result = await pool.query('UPDATE skills SET name = ?, category_id = ? WHERE id = ?', [name, category_id, id])
         res.json(result);
     }else{
         res.send("ERROR");
@@ -120,10 +120,10 @@ router.post('/skills', async (req, res) => {//Ruta para editar los datos de las 
     }
 });
 router.post('/groups', async (req, res) => {//Ruta para editar los datos del usuario
-    const { id, name, description } = req.body 
+    const { id, name, description, group_ids } = req.body 
     const exist = (await pool.query('SELECT * FROM user_group WHERE id = "'+id+'"')).length!=0 ? true : false;
     if (exist){
-        const result = await pool.query('UPDATE group SET name = ?, description = ? WHERE id = ?', [name, description, id])
+        const result = await pool.query('UPDATE group SET name = ?, group_ids = ?, description = ? WHERE id = ?', [name, group_ids, description, id])
         res.json(result);
     }else{
         res.send("ERROR");
@@ -142,23 +142,23 @@ router.post('/categories', async (req, res) => {//Ruta para editar los datos del
     }
 });
     //DELETE para eliminar registros
-router.delete('/users', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
-    const { id } = req.body
+router.delete('/users/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
+    const { id } = req.params
     const result = await pool.query('DELETE FROM user WHERE id =' + id)
     res.json(result);
 });
-router.delete('/skills', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
-    const { id } = req.body
+router.delete('/skills/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
+    const { id } = req.params
     const result = await pool.query('DELETE FROM skills WHERE id =' + id)
     res.json(result);
 });
-router.delete('/groups', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
-    const { id } = req.body
+router.delete('/groups/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
+    const { id } = req.params
     const result = await pool.query('DELETE FROM user_groups WHERE id =' + id)
     res.json(result);
 });
-router.delete('/categories', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
-    const { id } = req.body
+router.delete('/categories/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
+    const { id } = req.params
     const result = await pool.query('DELETE FROM categories WHERE id =' + id)
     res.json(result);
 });
