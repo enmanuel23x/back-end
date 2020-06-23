@@ -142,7 +142,7 @@ router.post('/groups', async (req, res) => {//Ruta para editar los datos del usu
     const { id, name, description } = req.body 
     const exist = (await pool.query('SELECT * FROM user_group WHERE id = "'+id+'"')).length!=0 ? true : false;
     if (exist){
-        const result = await pool.query('UPDATE group SET name = ?, description = ? WHERE id = ?', [name, description, id])
+        const result = await pool.query('UPDATE user_group SET name = ?, description = ? WHERE id = ?', [name, description, id])
         res.json(result);
     }else{
         res.send("ERROR");
