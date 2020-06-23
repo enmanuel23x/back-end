@@ -82,7 +82,7 @@ router.put('/groups', async (req, res) => {//Ruta para ingresar los datos de los
     if (exist){
         res.send("ERROR");
     }else{
-        const result = await pool.query('INSERT INTO group SET ?', {name: name, description: description})
+        const result = await pool.query('INSERT INTO user_group SET ?', {name: name, description: description})
         res.json(result);
     }
 });
