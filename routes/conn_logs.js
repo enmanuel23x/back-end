@@ -30,7 +30,7 @@ router.post('/update', (req, res) => {
     const query = create ?  "INSERT INTO connection_logs (`email`, `first_conn`, `last_conn`) VALUES ('"+email+"','"+formated_date+"','"+formated_date+"') ":'UPDATE connection_logs SET last_conn = "'+formated_date+'" WHERE email = "'+email+'"';
     pool.query(query, (err, conn) => {
         printError(err)
-        res.send("0")
+        res.send(formated_date)
     });
 })
 //Funcion para imprimir errores

@@ -30,11 +30,9 @@ router.get('/skills/:group', async (req, res) => {//Ruta para obtener datos de s
     const filteredCats = await cats.map( (item) => JSON.parse(item.group_ids).includes(parseInt(group)) ? item.id : null).filter(function (el) {
         return el != null;
       });
-    console.log(filteredCats)
     async function mapResult(filteredCats){
         let result = [], skills;
         for (i=0; i<filteredCats.length; i++){
-            console.log("id: "+filteredCats[i])
             skills =  await pool.query('SELECT *, (SELECT name FROM categories WHERE id = skills.category_id) AS category_name FROM skills WHERE category_id = '+filteredCats[i]+' ORDER BY category_name ASC, name ASC;');
             if(result.length == 0){
                 result = skills
