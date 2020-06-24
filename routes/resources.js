@@ -189,7 +189,10 @@ function deleteSkillFromUser(user, skillId){
         email: user.email, 
         full_name: user.full_name, 
         group_id: user.group_id, 
-        skills: JSON.stringify(result)})
+        skills: JSON.stringify(result),
+        sede: user.sede, 
+        cargo:user.cargo
+    })
 }
 router.delete('/groups/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
     const { id } = req.params
