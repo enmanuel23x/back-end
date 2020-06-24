@@ -54,13 +54,13 @@ router.get('/categories', async (req, res) => {//Ruta para obtener datos de las 
 });
     //PUT para insertar registros
 router.put('/users', async (req, res) => {//Ruta para ingresar los datos del usuario
-    const { email, full_name, group_id } = req.body
+    const { email, full_name, group_id, sede, cargo } = req.body
     const skills = JSON.stringify({"ids": [], "lvls": [], "names": []})
     const exist = (await pool.query('SELECT * FROM user WHERE email = "'+email+'"')).length!=0 ? true : false;
     if (exist){
         res.send("ERROR");
     }else{
-        const result = await pool.query('INSERT INTO user SET ?', {email: email, full_name: full_name, group_id: group_id, skills: skills})
+        const result = await pool.query('INSERT INTO user SET ?', {email: email, full_name: full_name, group_id: group_id, skills: skills, sede: sede, cargo: cargo})
         res.json(result);
     }
 });
@@ -96,10 +96,10 @@ router.put('/categories', async (req, res) => {//Ruta para ingresar los datos de
 });
     //POST para editar registros
 router.post('/users', async (req, res) => {//Ruta para editar los datos del usuario
-    const { id, email, full_name, group_id, skills } = req.body 
+    const { id, email, full_name, group_id, skills, sede, cargo  } = req.body 
     const exist = (await pool.query('SELECT * FROM user WHERE id = "'+id+'"')).length!=0 ? true : false;
     if (exist){
-        const result = await pool.query('UPDATE user SET email = ?, full_name = ?, group_id = ?, skills = ? WHERE id = ?', [email, full_name, group_id, skills, id])
+        const result = await pool.query('UPDATE user SET email = ?, full_name = ?, group_id = ?, skills = ?, sede = ?, cargo = ? WHERE id = ?', [email, full_name, group_id, skills, sede, cargo, id])
         res.json(result);
     }else{
         res.send("ERROR");
@@ -134,7 +134,10 @@ function updateSkillInUser(user, skillId, name){
         email: user.email, 
         full_name: user.full_name, 
         group_id: user.group_id, 
-        skills: JSON.stringify(result)})
+        skills: JSON.stringify(result),
+        sede: user.sede, 
+        cargo:user.cargo
+    })
 }
 router.post('/groups', async (req, res) => {//Ruta para editar los datos del usuario
     const { id, name, description } = req.body 

@@ -32,6 +32,8 @@ CREATE TABLE IF NOT EXISTS `user` (
     `email` varchar(50) NOT NULL,
     `group_id` int(11) DEFAULT NULL,
     `skills` JSON DEFAULT NULL,
+    `sede` varchar(50) NOT NULL,
+    `cargo` varchar(50) NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`group_id`) REFERENCES `user_group` (`id`)
 );
