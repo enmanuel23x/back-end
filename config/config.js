@@ -10,7 +10,7 @@ module.exports = {
 		acquireTimeout: 30000
     },
     email:{
-        EMAIL: 'intelixsender@gmail.com ',
+        EMAIL: 'intelixsender@gmail.com',
         PASS: 'Int1234567',
         HOST: 'smtp.gmail.com',
         PORT: 465
