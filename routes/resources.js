@@ -170,11 +170,13 @@ router.post('/categories', async (req, res) => {//Ruta para editar los datos del
 router.delete('/users/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
     const { id } = req.params
     const result = await pool.query('DELETE FROM user WHERE id =' + id)
+    await pool.query('DELETE FROM skills_x_user WHERE user_id =' + id)
     res.json(result);
 });
 router.delete('/skills/:id', async (req, res) => {//Ruta para eliminar los datos de los grupos de gerencia
     const { id } = req.params
     const users = await pool.query('SELECT * FROM user');
+    await pool.query('DELETE FROM skills_x_user WHERE skill_id =' + id)
     let user;
     for (i=0; i<users.length; i++){
         user = users[i];
