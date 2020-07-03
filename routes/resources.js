@@ -96,10 +96,15 @@ router.put('/categories', async (req, res) => {//Ruta para ingresar los datos de
 });
     //POST para editar registros
 router.post('/users', async (req, res) => {//Ruta para editar los datos del usuario
-    const { id, email, full_name, group_id, skills, sede, cargo  } = req.body 
+    const { id, email, full_name, group_id, skills, sede, cargo  } = req.body
+    const obj = JSON.parse(skills)
     const exist = (await pool.query('SELECT * FROM user WHERE id = "'+id+'"')).length!=0 ? true : false;
     if (exist){
         const result = await pool.query('UPDATE user SET email = ?, full_name = ?, group_id = ?, skills = ?, sede = ?, cargo = ? WHERE id = ?', [email, full_name, group_id, skills, sede, cargo, id])
+        await pool.query('DELETE FROM skills_x_user WHERE user_id =' + id)
+        for(i=0;i<obj.ids.length;i++){
+            await pool.query('INSERT INTO skills_x_user SET ?', {skill_id: obj.ids[i], user_id: id, lvl: obj.lvls[i]})
+        }
         res.json(result);
     }else{
         res.send("ERROR");

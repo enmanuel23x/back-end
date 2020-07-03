@@ -44,3 +44,12 @@ CREATE TABLE IF NOT EXISTS `skills` (
     PRIMARY KEY (`id`),
     FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
 );
+CREATE TABLE IF NOT EXISTS `skills_x_user` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `skill_id` int(11) DEFAULT NULL,
+    `user_id` int(11) DEFAULT NULL,
+    `lvl` varchar(25) NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`skill_id`) REFERENCES `skills` (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+);
