@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 //Rutas
 router.post('/login', (req, res) => {
-    if(req.body.user === process.env.USER && req.body.pass === process.env.PASS) {
+    if(req.body.user == process.env.MAPEOREACTUSER && req.body.pass == process.env.MAPEOREACTPASS) {
   const payload = {
    check:  true
   };
